@@ -19,19 +19,19 @@ def logic_table(operation: str):
         print(str(LFSR1.state[-1]) + " "+operation+" " + str(LFSR2.state[-1]) + " = " + str(fullStreamCipher.shift()))
 
 
-def multi_level_generator():
+def geffe_generator():
     LFSR1 = Lfsr(initial_state=10101010, taps=(8,))
     LFSR2 = Lfsr(initial_state=11001100, taps=(8,))
     LFSR3 = Lfsr(initial_state=11110000, taps=(8,))
     my_tuple = LFSR1, LFSR2, LFSR3
-    parse_tree = "xor", "and", "and", 1, 2, 1, 3
+    parse_tree = "xor", "and", "and", 1, 2, "not", 3, 1
     for _ in range(8):
         fullStreamCipher = FullStreamCipher(my_tuple, parse_tree)
         print(str(LFSR1.state[-1]) + ", " + str(LFSR2.state[-1]) + ", " + str(LFSR3.state[-1]) +
               " => " + str(fullStreamCipher.shift()))
 
 
-multi_level_generator()
+geffe_generator()
 # logic_table("xor")
 # logic_table("or")
 # logic_table("and")
